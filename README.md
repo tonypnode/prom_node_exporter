@@ -4,12 +4,8 @@
 * Install the exporter
 * configure the exporter
 * set it up as a service
-* Update the prometheus server to scrape the new host
+* Update the prometheus server to scrape the new host (don't think this is needed if you are doing service discovery)
 * validate
-
-
-hows it gonna do that... not sure yet, but it fucking will!!!
-
 
 ### References
 * https://www.digitalocean.com/community/tutorials/how-to-install-prometheus-on-ubuntu-16-04
@@ -22,13 +18,13 @@ hows it gonna do that... not sure yet, but it fucking will!!!
 
 ``` mkdir node_exporter_tmp ```
 
-``` tar xvf node_exporter-0.16.0.linux-amd64.tar.gz -d node_exporter_tmp```
+``` tar xvf node_exporter-0.16.0.linux-amd64.tar.gz```
 
-``` cp node_exporter_tmp/node_exporter /usr/local/bin ```
+``` cp node_exporter-0.16.0.linux-amd64/node_exporter /usr/local/bin ```
 
 ``` chown node_exporter:node_exporter /usr/local/bin/node_exporter ```
 
-``` rm -rf node_exporter-0.15.1.linux-amd64.tar.gz node_exporter_tmp ```
+``` rm -rf node_exporter-0.15.1.linux-amd64.tar.gz node_exporter-0.16.0.linux-amd64 ```
 
 ``` vi /etc/systemd/system/node_exporter.service```
 

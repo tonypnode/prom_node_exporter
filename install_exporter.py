@@ -6,6 +6,8 @@ import pwd
 import hashlib
 import tarfile
 
+
+# TODO I should prolly remove most of this data from the file and create a config file
 username = 'node_exporter'
 exporter_url = 'https://github.com/prometheus/node_exporter/releases/download/v0.16.0/'
 exporter_file = 'node_exporter-0.16.0.linux-amd64.tar.gz'

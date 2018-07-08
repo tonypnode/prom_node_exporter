@@ -1,14 +1,21 @@
 # Prometheus Exporter Installer
 ### This automation will:
-* Download the exporter on a device
+* Download the exporter on a (unix) server
+  * validate sha
 * Install the exporter
 * configure the exporter
 * set it up as a service
-* Update the prometheus server to scrape the new host (don't think this is needed if you are doing service discovery)
-* validate
+* clean up
+
+
+Need tests. 
 
 ### References
 * https://www.digitalocean.com/community/tutorials/how-to-install-prometheus-on-ubuntu-16-04
+
+I chose the latest stable build of the exporter from https://prometheus.io/download/#node_exporter
+
+You may need to update the .py file if a new version comes out or you want a different version.
 
 ``` useradd --no-create-home --shell /bin/false node_exporter ```
 

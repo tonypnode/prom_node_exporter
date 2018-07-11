@@ -68,4 +68,4 @@ You may need to update the .py file if a new version comes out or you want a dif
 
 ``` git clone https://github.com/tonypnode/prom_node_exporter.git```
 
-``` python3 ./install_exporter.py ```
+``` python3 ./prom_node_exporter/install_exporter.py ```

@@ -35,19 +35,21 @@ You may need to update the .py file if a new version comes out or you want a dif
 
 ``` vi /etc/systemd/system/node_exporter.service```
 
-``` [Unit]
-        Description=Node Exporter
-        Wants=network-online.target
-        After=network-online.target
+``` 
+[Unit]
+Description=Node Exporter
+Wants=network-online.target
+After=network-online.target
 
-        [Service]
-        User=node_exporter
-        Group=node_exporter
-        Type=simple
-        ExecStart=/usr/local/bin/node_exporter
+[Service]
+User=node_exporter
+Group=node_exporter
+Type=simple
+ExecStart=/usr/local/bin/node_exporter
 
-        [Install]
-        WantedBy=multi-user.target 
+[Install]
+WantedBy=multi-user.target
+
 ```
 
 ``` systemctl daemon-reload ```

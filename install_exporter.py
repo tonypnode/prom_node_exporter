@@ -36,17 +36,21 @@ WantedBy=multi-user.target
 
 def main():
     if get_exporter(url=exporter_url, file=exporter_file):
-        validate_sha(sha=exporter_sha, return_hash=get_checksum(exporter_file))
-        extract_file(file_name=exporter_file)
-        move_files(wrk_dir=exporter_working_dir, bin_file=bin_file_name, final_bin_dir=bin_file_dest)
-        create_new_user(new_user=username)
-        usr_uid, grp_id = get_user_uid(u_name=username)
-        file_set_owner(uid=usr_uid, grpid=grp_id, path='{}/{}'.format(bin_file_dest, bin_file_name))
-        service_create(location=svc_location, srvice_name=svc_name, file_ext=svc_file_extention)
-        service_start(svc=svc_name)
-        service_status(svc=svc_name)
-        service_enable(svc=svc_name)
-        script_clean_up(tmp_dir=exporter_working_dir, tmp_gz=exporter_file)
+        if validate_sha(sha=exporter_sha, return_hash=get_checksum(exporter_file)):
+            extract_file(file_name=exporter_file)
+            move_files(wrk_dir=exporter_working_dir, bin_file=bin_file_name, final_bin_dir=bin_file_dest)
+            create_new_user(new_user=username)
+            usr_uid, grp_id = get_user_uid(u_name=username)
+            file_set_owner(uid=usr_uid, grpid=grp_id, path='{}/{}'.format(bin_file_dest, bin_file_name))
+            service_create(location=svc_location, srvice_name=svc_name, file_ext=svc_file_extention)
+            service_start(svc=svc_name)
+            service_status(svc=svc_name)
+            service_enable(svc=svc_name)
+            script_clean_up(tmp_dir=exporter_working_dir, tmp_gz=exporter_file)
+        else:
+            raise ValueError('The Hash no matchie')
+    else:
+        raise ValueError('Unable to get exporter')
 
 
 def get_exporter(url=None, file=None):
@@ -62,7 +66,10 @@ def get_exporter(url=None, file=None):
 
 def validate_sha(sha=None, return_hash=None):
     """Validate SHA256 hash from download"""
-    return sha and return_hash and return_hash == sha
+    if return_hash and sha and len(sha) == 64 and return_hash == sha:
+        return True
+    else:
+        return False
 
 
 def get_checksum(file_name=None):

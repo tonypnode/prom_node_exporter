@@ -8,6 +8,7 @@ import tarfile
 
 
 # TODO I should prolly remove most of this data from the file and create a config file
+# TODO Need to update so that this can install several different prometheus exporters
 username = 'node_exporter'
 exporter_url = 'https://github.com/prometheus/node_exporter/releases/download/v0.16.0/'
 exporter_file = 'node_exporter-0.16.0.linux-amd64.tar.gz'
@@ -57,6 +58,7 @@ def get_exporter(url=None, file=None):
     """Download the exporter"""
     try:
         if url and file:
+            #TODO Change to subprocess
             system('wget {}{}'.format(url, file))
             return True
     except OSError:
@@ -94,7 +96,7 @@ def extract_file(file_name=None):
         except (tarfile.TarError, tarfile.ExtractError) as e:
             print(e)
     else:
-        raise ValueError('File Name AND Path must be specified')
+        raise ValueError('File Name must be specified')
 
 
 def move_files(wrk_dir=None, bin_file=None, final_bin_dir=None):
@@ -102,6 +104,7 @@ def move_files(wrk_dir=None, bin_file=None, final_bin_dir=None):
     from_path = '{}/{}'.format(wrk_dir, bin_file)
     to_path = '{}/{}'.format(final_bin_dir, bin_file)
     if os_path.isdir(wrk_dir) and os_path.isfile(from_path) and os_path.isdir(final_bin_dir):
+        # TODO Change to subprocess
         rename(from_path, to_path)
     else:
         raise ValueError('Something went wrong when I tried to move the files, check paths idiot.')
@@ -135,6 +138,7 @@ def file_set_owner(uid=None, grpid=None, path=None):
     """Set file owner
     chown node_exporter:node_exporter /usr/local/bin/node_exporter
     """
+    # TODO Change to subprocess?
     chown(path, uid, grpid)
 
 
@@ -150,22 +154,26 @@ def service_create(location, srvice_name, file_ext):
 
 def service_start(svc):
     """Reload daemon and start the service"""
+    # TODO Change to subprocess
     system('systemctl daemon-reload')
     system('systemctl start {}'.format(svc))
 
 
 def service_status(svc):
     """Check status of service"""
+    # TODO Change to subprocess
     system('systemctl status {}'.format(svc))
 
 
 def service_enable(svc):
     """Enable the service"""
+    # TODO Change to subprocess
     system('systemctl enable {}'.format(svc))
 
 
 def script_clean_up(tmp_dir, tmp_gz):
     """Cleans up temp working directory and gz"""
+    # TODO Change to subprocess
     remove(tmp_gz)
     rmtree(tmp_dir)
 

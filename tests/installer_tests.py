@@ -31,11 +31,7 @@ class InstallerTests(unittest.TestCase):
 
     def test_checksum(self):
         """validate hashing"""
-        self.assertEqual(exporter.get_checksum(file_name='known_hash_file'), self.known_hash)
+        self.assertEqual(exporter.get_checksum(file_name='./tests/known_hash_file'), self.known_hash)
 
         for fail in self.fail_cases:
-            self.assertNotEqual(exporter.get_checksum(file_name='known_hash_file'), fail[1])
-
-
-
-
+            self.assertNotEqual(exporter.get_checksum(file_name='./tests/known_hash_file'), fail[1])

@@ -76,15 +76,18 @@ def validate_sha(sha=None, return_hash=None):
 
 def get_checksum(file_name=None):
     """Calculate sha256 checksum of file"""
-    block_size = 65536
-    sha256 = hashlib.sha256()
-    try:
-        with open(file_name, 'rb') as f:
-            for block in iter(lambda: f.read(block_size), b''):
-                sha256.update(block)
-            return str(sha256.hexdigest())
-    except IOError:
-        print("Something went wrong with the file, don't think it's there")
+    if file_name:
+        block_size = 65536
+        sha256 = hashlib.sha256()
+        try:
+            with open(file_name, 'rb') as f:
+                for block in iter(lambda: f.read(block_size), b''):
+                    sha256.update(block)
+                return str(sha256.hexdigest())
+        except IOError:
+            print("Something went wrong with the file, don't think it's there")
+    else:
+        raise FileNotFoundError("File Cannot be None")
 
 
 def extract_file(file_name=None):

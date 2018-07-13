@@ -1,4 +1,7 @@
 # Prometheus Exporter Installer
+Current Build:
+
+[![Build Status](https://travis-ci.org/tonypnode/prom_node_exporter.svg?branch=master)](https://travis-ci.org/tonypnode/prom_node_exporter)
 ### This automation will:
 * Download the exporter on a (unix) server
   * validate sha
